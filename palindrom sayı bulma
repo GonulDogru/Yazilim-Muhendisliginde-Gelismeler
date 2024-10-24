@@ -1,0 +1,27 @@
+package palindrom;
+
+import java.util.Scanner;
+
+public class Palindrom {
+
+    public static void main(String[] args) {
+     Scanner input = new Scanner(System.in);
+        System.out.println("Kelime giriniz:");
+        
+        String string = input.nextLine();
+        if(recursiveKontrol(string)==true)
+            System.out.println("palindromdur"); 
+        else
+            System.out.println("palindrom değildir");
+    }
+    public static boolean recursiveKontrol(String string){
+        if(string.length()==0 || string.length()==1)
+return true;
+        else if (string.charAt(0)== string.charAt(string.length()-1))
+            return recursiveKontrol(string.substring(1, string.length()-1));
+        else return false;
+            
+    
+    }
+    
+}
