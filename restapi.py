@@ -50,25 +50,24 @@ class Name(Resource):
                 return {'data': entry}, 207
         return {'message': 'No entry found with this name!'}, 405
 
-class Sum(Resource):
-    def get(self):
-        # Parse the two numbers from the query parameters
-        data_arg = reqparse.RequestParser()
-        data_arg.add_argument("num1", type=int, required=True, help="First number is required.")
-        data_arg.add_argument("num2", type=int, required=True, help="Second number is required.")
-        
+class Multiply(Resource):
+    def post(self):
        
+        data_arg = reqparse.RequestParser()
+        data_arg.add_argument("num1", type=float, required=True, help="First number is required.")
+        data_arg.add_argument("num2", type=float, required=True, help="Second number is required.")
+
         args = data_arg.parse_args()
-        
-        result = args["num1"] + args["num2"]
-        
-        return {'sum': result}, 200
+
+        result = args["num1"] * args["num2"]
+
+        return {'product': result}, 200
 
 # Add URL endpoints
 api.add_resource(Users, '/users')
 api.add_resource(Cities, '/cities')
 api.add_resource(Name, '/<string:name>')
-api.add_resource(Sum, '/sum')  # New endpoint for addition
+api.add_resource(Multiply, '/multiply')  # New endpoint for multiplication
 
 if __name__ == '__main__':
     app.run()
