@@ -10,7 +10,7 @@ class Users(Resource):
         self.data = pd.read_csv('kullanicilar.csv')
     def get(self):
         self.data = self.data.to_dict('records')
-        return {'data' : self.data}, 200
+        return {'data': self.data}, 200
 
     def post(self):
         data_arg = reqparse.RequestParser()
@@ -50,24 +50,10 @@ class Name(Resource):
                 return {'data': entry}, 207
         return {'message': 'No entry found with this name!'}, 405
 
-class Multiply(Resource):
-    def post(self):
-       
-        data_arg = reqparse.RequestParser()
-        data_arg.add_argument("num1", type=float, required=True, help="First number is required.")
-        data_arg.add_argument("num2", type=float, required=True, help="Second number is required.")
-
-        args = data_arg.parse_args()
-
-        result = args["num1"] * args["num2"]
-
-        return {'product': result}, 200
-
-# Add URL endpoints
 api.add_resource(Users, '/users')
 api.add_resource(Cities, '/cities')
 api.add_resource(Name, '/<string:name>')
-api.add_resource(Multiply, '/multiply')  # New endpoint for multiplication
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=33)
+
